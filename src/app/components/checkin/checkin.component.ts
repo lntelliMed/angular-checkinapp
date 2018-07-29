@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from "@angular/router";
+import { Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class CheckinComponent implements OnInit {
   data: any;
   checkInResponse:any;
 
-  constructor(private router:ActivatedRoute, private service:DataService) { }
+  constructor(private route:Router, private router:ActivatedRoute, private service:DataService) { }
 
   ngOnInit() {
     const id = Number.parseInt(this.router.snapshot.paramMap.get('id'));
@@ -30,6 +31,7 @@ export class CheckinComponent implements OnInit {
     this.service.checkin(checkInRequest).subscribe(res => {
       this.checkInResponse = res;
     });
+    this.route.navigate(['/confirm']);
   }
 
 }
