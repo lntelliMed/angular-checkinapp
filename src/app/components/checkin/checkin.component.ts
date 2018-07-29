@@ -16,6 +16,7 @@ export class CheckinComponent implements OnInit {
   ngOnInit() {
     const id = Number.parseInt(this.router.snapshot.paramMap.get('id'));
     this.service.getReservation(id).subscribe(res => {
+      console.log(res)
       this.data = res;
     });
   }
