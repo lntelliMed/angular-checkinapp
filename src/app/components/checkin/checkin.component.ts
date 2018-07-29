@@ -9,15 +9,26 @@ import { DataService } from '../../services/data.service';
 })
 export class CheckinComponent implements OnInit {
 
-  data:any;
+  data: any;
+  checkInResponse:any;
 
   constructor(private router:ActivatedRoute, private service:DataService) { }
 
   ngOnInit() {
     const id = Number.parseInt(this.router.snapshot.paramMap.get('id'));
     this.service.getReservation(id).subscribe(res => {
-      console.log(res)
       this.data = res;
+    });
+  }
+
+  checkin(noOfBags) {
+    const checkInRequest:any = new Object();
+    checkInRequest.id = this.data.id;
+    checkInRequest.checkedIn = true;
+    checkInRequest.numberOfBags = noOfBags;
+
+    this.service.checkin(checkInRequest).subscribe(res => {
+      this.checkInResponse = res;
     });
   }
 
